@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Casa do Sabor</title>
+    <style>
+        :root{
+            --cor-fundo: #fff0f3;
+            --cor-texto: #590d22;
+            --cor-destaque: #c9184a;
+            --cor-botao: #ff4d6d;
+            --cor-card: #f5f5f5;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0;
+            padding: 15px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .tela {
+            display: none;
+        }
+        .tela.ativa {
+            display: block;
+        }
+        .card-menu {
+            background-color: var(--cor-card);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .card-menu:hover {
+            background-color: var(--cor-fundo);
+        }
+        .card-foto-slide {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .card-foto-slide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .btn-voltar {
+            background-color: var(--cor-botao);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .btn-voltar:hover {
+            background-color: var(--cor-botao);
+        }
+        h1.titulo {
+            color: var(--cor-destaque);
+            font-size: 2rem;
+        }
+        .subtitulo {
+            color: var(--cor-texto);
+            font-size: 1.2rem;
+        }
+        .card-titulo {
+            color: var(--cor-destaque);
+            font-size: 1.5rem;
+        }
+        .card-desc {
+            color: var(--cor-texto);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="titulo" align="center"><i>Bem vindo ao Restaurante Casa do Sabor</i></h1>
+        <p class="subtitulo" align="center">Desfrute de nossa deliciosa comida!</p>
+        
+        <!--Menu Principal-->
+        <div id="tela-menu" class="tela ativa">
+            <h2 class="card-titulo" align="center">Menu Principal</h2>
+            <p class="card-desc" align="center">Escolha um prato delicioso!</p>
+
+            <div class="card-menu" onclick="AbrirTela(tela-prato-principal)">
+                <h3 class="card-titulo">Cardápio</h3>
+                <p class="card-desc">Conheça nossos pratos principais caseiros e mais suculentos.</p>
+            </div>
+            <div class="card-menu" onclick="AbrirTela(tela-sobremesa)">
+                <h3 class="card-titulo">Sobremesas</h3>
+                <p class="card-desc">As melhores e mais doces tentações da casa.</p>
+            </div>
+            <div class="card-menu" onclick="AbrirTela(tela-reservas)">
+                <h3 class="card-titulo">Reservas</h3>
+                <p class="card-desc">Reserve sua mesa agora!</p>
+            </div>
+            <div class="card-menu" onclick="AbrirTela(tela-localizacao)">
+                <h3 class="card-titulo">Localização</h3>
+                <p class="card-desc">Encontre nosso restaurante</p>
+            </div>
+            <div class="card-menu" onclick="AbrirTela(tela-contato)">
+                <h3 class="card-titulo">Contato</h3>
+                <p class="card-desc">Entre em contato conosco</p>
+            </div>
+        </div>
+        <!--Tela de Seleção de Prato-->
+        <div id="tela-prato-principal" class="tela">
+           <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+           <h2 align="center" class="card-titulo">Seleção de Prato</h2>
+           <p align="center" class="card-desc">Clique na foto para passar para o próximo prato!</p>
+
+           <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="creme.jpeg" alt="Creme de Frango">
+                <p class="card-desc">Creme de Frango</p>            
+            </div>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="macarronada.jpeg" alt="Macarronada">
+                <p class="card-desc">Macarronada</p>
+            </div>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="empanado.jpeg" alt="Empanado">
+                <p class="card-desc">Empanado</p>
+            </div>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="escondidinho.jpeg" alt="Escondidinho de Carne">
+                <p class="card-desc">Escondidinho de Carne</p>
+           </div>
+        </div>
+
+        <div id="tela-sobremesa" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 align="center" class="card-titulo">Sobremesas</h2>
+            <p align="center" class="card-desc">Confira nossas deliciosas sobremesas!</p>
+
+            <div class="card-foto-slide" onclick="proximaFoto()">
+                <img src="açai.jpeg" alt="Foto 1">
+                <p class="card-desc">1. Açaí(Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
+            </div>
+
+            <div class="card-foto-slide" onclick="proximaFoto()">
+                <img src="sorvete.jpeg" alt="Foto 1">
+                <p class="card-desc">2. Sorvete(Creme, Chocolate, Baunilha, Pavê)</p>
+            </div>
+
+            <div class="card-foto-slide" onclick="proximaFoto()">
+                <img src="bolo.jpeg" alt="Foto 1">
+                <p class="card-desc">3. Bolo(Chocolate, Cenoura, Fubá, Laranja)</p>
+            </div>
+
+            <div class="card-foto-slide" onclick="proximaFoto()">
+                <img src="pudim.jpeg" alt="Foto 1">
+                <p class="card-desc">4. Pudim</p>
+            </div>
+
+            <div class="card-foto-slide" onclick="proximaFoto()">
+                <img src="torta.jpeg" alt="Foto 1">
+                <p class="card-desc">5. Torta(Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
+            </div>
+        </div>
+
+        <div id="tela-localizacao" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 align="center" class="card-titulo">Localização</h2>
+            <p align="center" class="card-desc">Encontre nosso restaurante!</p>
+
+            <div class="card-foto-slide">
+                <p class="card-desc">Ainda estamos providenciando um Restaurante físico.</p>
+            </div>
+        </div>
+
+        <div id="tela-reservas" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 align="center" class="card-titulo">Reservas</h2>
+            <p align="center" class="card-desc">Faça sua reserva conosco!</p>
+
+            <div class="card-foto-slide">
+                <p class="card-desc">Escolha a data e o horário para sua reserva.</p>
+                <p class="card-desc">Entre em contato para mais informações.</p>
+                <p class="card-desc">Contato: (11) 1234-5678</p>
+            </div>
+        </div>
+
+        <div id="tela-contato" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 align="center" class="card-titulo">Contato</h2>
+            <p align="center" class="card-desc">Entre em contato conosco!</p>
+
+            <div class="card-foto-slide">
+                <p class="card-desc">Email: contato@restaurante.com</p>
+                <p class="card-desc">Telefone: (11) 1234-5678</p>
+            </div>
+        </div>
+
+        <script>
+        // =======================================================
+// 1. LÓGICA DE TROCA DE TELAS
+// =======================================================
+function abrirTela(idTela) {
+    // 1. Esconde todas as telas
+    const telas = document.querySelectorAll('.tela');
+    telas.forEach(tela => tela.classList.remove('ativa'));
+
+    // 2. Procura e exibe a tela desejada
+    const telaDesejada = document.getElementById(idTela);
+    if (telaDesejada) {
+        telaDesejada.classList.add('ativa');
+        
+        // Prepara os slides da tela que acabou de abrir
+        inicializarSlides(telaDesejada);
+    }
+}
+
+// =======================================================
+// 2. LÓGICA DO SLIDE / CARROSSEL DE FOTOS
+// =======================================================
+
+// Garante que só a 1ª foto apareça quando a tela for aberta
+function inicializarSlides(tela) {
+    const slides = tela.querySelectorAll('.card-foto-slide');
+    if (slides.length > 0) {
+        slides.forEach((slide, index) => {
+            // Mostra apenas a primeira foto (índice 0) e esconde as outras
+            slide.style.display = (index === 0) ? 'block' : 'none';
+        });
+    }
+}
+
+// Passa para o próximo prato ao clicar no card da foto
+function PassarPrato(elementoClicado) {
+    const telaAtual = elementoClicado.parentElement;
+    const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
+    
+    if (slides.length <= 1) return; // Se tiver só 1 foto, não faz nada
+
+    // Encontra a posição da foto atual
+    const indiceAtual = slides.indexOf(elementoClicado);
+    
+    // Calcula a próxima foto (quando chega no final, volta para a primeira: 0)
+    const proximoIndice = (indiceAtual + 1) % slides.length;
+
+    // Esconde a foto atual e mostra a próxima
+    elementoClicado.style.display = 'none';
+    slides[proximoIndice].style.display = 'block';
+}
+
+// Função auxiliar para as sobremesas que usam onclick="proximaFoto()"
+function proximaFoto() {
+    const telaAtiva = document.querySelector('.tela.ativa');
+    if (!telaAtiva) return;
+
+    // Procura qual foto está visível no momento
+    const slideVisivel = Array.from(telaAtiva.querySelectorAll('.card-foto-slide'))
+                              .find(slide => slide.style.display !== 'none');
+
+    if (slideVisivel) {
+        PassarPrato(slideVisivel);
+    }
+}
+
+// Ao carregar a página pela primeira vez, ajusta as telas
+document.addEventListener('DOMContentLoaded', () => {
+    const telaInicial = document.getElementById('tela-menu');
+    if (telaInicial) {
+        inicializarSlides(telaInicial);
+    }
+});
+            function abrirTela(idTela) {
+        // 1. Remove a classe 'ativa' de todas as telas (esconde tudo)
+         const telas = document.querySelectorAll('.tela');
+        telas.forEach(tela => tela.classList.remove('ativa'));
+
+        // 2. Procura a tela pelo ID recebido e adiciona a classe 'ativa' (mostra na tela)
+        const telaDesejada = document.getElementById(idTela);
+        if (telaDesejada) {
+        telaDesejada.classList.add('ativa');
+        }
+        }
+        
+        </script>
+    </div>
+</body>
+</html>
