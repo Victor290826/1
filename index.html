@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante Casa do Sabor</title>
     <style>
-        :root{
+        :root {
             --cor-fundo: #fff0f3;
             --cor-texto: #590d22;
             --cor-destaque: #c9184a;
@@ -56,6 +56,7 @@
         .card-foto-slide {
             text-align: center;
             margin: 20px 0;
+            cursor: pointer;
         }
         .card-foto-slide img {
             max-width: 100%;
@@ -72,7 +73,7 @@
             margin-bottom: 20px;
         }
         .btn-voltar:hover {
-            background-color: var(--cor-botao);
+            background-color: var(--cor-destaque);
         }
         h1.titulo {
             color: var(--cor-destaque);
@@ -85,6 +86,7 @@
         .card-titulo {
             color: var(--cor-destaque);
             font-size: 1.5rem;
+            margin: 0;
         }
         .card-desc {
             color: var(--cor-texto);
@@ -94,209 +96,166 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="titulo" align="center"><i>Bem vindo ao Restaurante Casa do Sabor</i></h1>
-        <p class="subtitulo" align="center">Desfrute de nossa deliciosa comida!</p>
+        <h1 class="titulo"><i>Bem vindo ao Restaurante Casa do Sabor</i></h1>
+        <p class="subtitulo">Desfrute de nossa deliciosa comida!</p>
         
-        <!--Menu Principal-->
+        <!-- Menu Principal -->
         <div id="tela-menu" class="tela ativa">
-            <h2 class="card-titulo" align="center">Menu Principal</h2>
-            <p class="card-desc" align="center">Escolha um prato delicioso!</p>
+            <h2 class="card-titulo">Menu Principal</h2>
+            <p class="card-desc">Escolha um prato delicioso!</p>
 
-            <div class="card-menu" onclick="AbrirTela(tela-prato-principal)">
+            <div class="card-menu" onclick="abrirTela('tela-prato-principal')">
                 <h3 class="card-titulo">Cardápio</h3>
                 <p class="card-desc">Conheça nossos pratos principais caseiros e mais suculentos.</p>
             </div>
-            <div class="card-menu" onclick="AbrirTela(tela-sobremesa)">
+            <div class="card-menu" onclick="abrirTela('tela-sobremesa')">
                 <h3 class="card-titulo">Sobremesas</h3>
                 <p class="card-desc">As melhores e mais doces tentações da casa.</p>
             </div>
-            <div class="card-menu" onclick="AbrirTela(tela-reservas)">
+            <div class="card-menu" onclick="abrirTela('tela-reservas')">
                 <h3 class="card-titulo">Reservas</h3>
                 <p class="card-desc">Reserve sua mesa agora!</p>
             </div>
-            <div class="card-menu" onclick="AbrirTela(tela-localizacao)">
+            <div class="card-menu" onclick="abrirTela('tela-localizacao')">
                 <h3 class="card-titulo">Localização</h3>
                 <p class="card-desc">Encontre nosso restaurante</p>
             </div>
-            <div class="card-menu" onclick="AbrirTela(tela-contato)">
+            <div class="card-menu" onclick="abrirTela('tela-contato')">
                 <h3 class="card-titulo">Contato</h3>
                 <p class="card-desc">Entre em contato conosco</p>
             </div>
         </div>
-        <!--Tela de Seleção de Prato-->
-        <div id="tela-prato-principal" class="tela">
-           <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-           <h2 align="center" class="card-titulo">Seleção de Prato</h2>
-           <p align="center" class="card-desc">Clique na foto para passar para o próximo prato!</p>
 
-           <div class="card-foto-slide" onclick="PassarPrato(this)">
-                <img src="creme.jpeg" alt="Creme de Frango">
+        <!-- Tela de Seleção de Prato -->
+        <div id="tela-prato-principal" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 class="card-titulo">Seleção de Prato</h2>
+            <p class="card-desc">Clique na foto para passar para o próximo prato!</p>
+
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="creme.jpg" alt="Creme de Frango">
                 <p class="card-desc">Creme de Frango</p>            
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
-                <img src="macarronada.jpeg" alt="Macarronada">
+                <img src="macarronada.jfif" alt="Macarronada">
                 <p class="card-desc">Macarronada</p>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
-                <img src="empanado.jpeg" alt="Empanado">
+                <img src="empanado.jfif" alt="Empanado">
                 <p class="card-desc">Empanado</p>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
-                <img src="escondidinho.jpeg" alt="Escondidinho de Carne">
+                <img src="escondidinho.jpg" alt="Escondidinho de Carne">
                 <p class="card-desc">Escondidinho de Carne</p>
-           </div>
+            </div>
         </div>
 
+        <!-- Tela de Sobremesa -->
         <div id="tela-sobremesa" class="tela">
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-            <h2 align="center" class="card-titulo">Sobremesas</h2>
-            <p align="center" class="card-desc">Confira nossas deliciosas sobremesas!</p>
+            <h2 class="card-titulo">Sobremesas</h2>
+            <p class="card-desc">Confira nossas deliciosas sobremesas!</p>
 
-            <div class="card-foto-slide" onclick="proximaFoto()">
-                <img src="açai.jpeg" alt="Foto 1">
-                <p class="card-desc">1. Açaí(Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="açai.jpeg" alt="Açaí">
+                <p class="card-desc">1. Açaí (Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
             </div>
-
-            <div class="card-foto-slide" onclick="proximaFoto()">
-                <img src="sorvete.jpeg" alt="Foto 1">
-                <p class="card-desc">2. Sorvete(Creme, Chocolate, Baunilha, Pavê)</p>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="sorvete.webp" alt="Sorvete">
+                <p class="card-desc">2. Sorvete (Creme, Chocolate, Baunilha, Pavê)</p>
             </div>
-
-            <div class="card-foto-slide" onclick="proximaFoto()">
-                <img src="bolo.jpeg" alt="Foto 1">
-                <p class="card-desc">3. Bolo(Chocolate, Cenoura, Fubá, Laranja)</p>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="bolo.jfif" alt="Bolo">
+                <p class="card-desc">3. Bolo (Chocolate, Cenoura, Fubá, Laranja)</p>
             </div>
-
-            <div class="card-foto-slide" onclick="proximaFoto()">
-                <img src="pudim.jpeg" alt="Foto 1">
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="pudim.webp" alt="Pudim">
                 <p class="card-desc">4. Pudim</p>
             </div>
-
-            <div class="card-foto-slide" onclick="proximaFoto()">
-                <img src="torta.jpeg" alt="Foto 1">
-                <p class="card-desc">5. Torta(Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
+            <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <img src="torta.webp" alt="Torta">
+                <p class="card-desc">5. Torta (Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
             </div>
         </div>
 
+        <!-- Tela de Localização -->
         <div id="tela-localizacao" class="tela">
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-            <h2 align="center" class="card-titulo">Localização</h2>
-            <p align="center" class="card-desc">Encontre nosso restaurante!</p>
+            <h2 class="card-titulo">Localização</h2>
+            <p class="card-desc">Encontre nosso restaurante!</p>
 
-            <div class="card-foto-slide">
+            <div class="card-menu">
                 <p class="card-desc">Ainda estamos providenciando um Restaurante físico.</p>
             </div>
         </div>
 
+        <!-- Tela de Reservas -->
         <div id="tela-reservas" class="tela">
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-            <h2 align="center" class="card-titulo">Reservas</h2>
-            <p align="center" class="card-desc">Faça sua reserva conosco!</p>
+            <h2 class="card-titulo">Reservas</h2>
+            <p class="card-desc">Faça sua reserva conosco!</p>
 
-            <div class="card-foto-slide">
+            <div class="card-menu">
                 <p class="card-desc">Escolha a data e o horário para sua reserva.</p>
                 <p class="card-desc">Entre em contato para mais informações.</p>
                 <p class="card-desc">Contato: (11) 1234-5678</p>
             </div>
         </div>
 
+        <!-- Tela de Contato -->
         <div id="tela-contato" class="tela">
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-            <h2 align="center" class="card-titulo">Contato</h2>
-            <p align="center" class="card-desc">Entre em contato conosco!</p>
+            <h2 class="card-titulo">Contato</h2>
+            <p class="card-desc">Entre em contato conosco!</p>
 
-            <div class="card-foto-slide">
+            <div class="card-menu">
                 <p class="card-desc">Email: contato@restaurante.com</p>
                 <p class="card-desc">Telefone: (11) 1234-5678</p>
             </div>
         </div>
-
-        <script>
-        // =======================================================
-// 1. LÓGICA DE TROCA DE TELAS
-// =======================================================
-function abrirTela(idTela) {
-    // 1. Esconde todas as telas
-    const telas = document.querySelectorAll('.tela');
-    telas.forEach(tela => tela.classList.remove('ativa'));
-
-    // 2. Procura e exibe a tela desejada
-    const telaDesejada = document.getElementById(idTela);
-    if (telaDesejada) {
-        telaDesejada.classList.add('ativa');
-        
-        // Prepara os slides da tela que acabou de abrir
-        inicializarSlides(telaDesejada);
-    }
-}
-
-// =======================================================
-// 2. LÓGICA DO SLIDE / CARROSSEL DE FOTOS
-// =======================================================
-
-// Garante que só a 1ª foto apareça quando a tela for aberta
-function inicializarSlides(tela) {
-    const slides = tela.querySelectorAll('.card-foto-slide');
-    if (slides.length > 0) {
-        slides.forEach((slide, index) => {
-            // Mostra apenas a primeira foto (índice 0) e esconde as outras
-            slide.style.display = (index === 0) ? 'block' : 'none';
-        });
-    }
-}
-
-// Passa para o próximo prato ao clicar no card da foto
-function PassarPrato(elementoClicado) {
-    const telaAtual = elementoClicado.parentElement;
-    const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
-    
-    if (slides.length <= 1) return; // Se tiver só 1 foto, não faz nada
-
-    // Encontra a posição da foto atual
-    const indiceAtual = slides.indexOf(elementoClicado);
-    
-    // Calcula a próxima foto (quando chega no final, volta para a primeira: 0)
-    const proximoIndice = (indiceAtual + 1) % slides.length;
-
-    // Esconde a foto atual e mostra a próxima
-    elementoClicado.style.display = 'none';
-    slides[proximoIndice].style.display = 'block';
-}
-
-// Função auxiliar para as sobremesas que usam onclick="proximaFoto()"
-function proximaFoto() {
-    const telaAtiva = document.querySelector('.tela.ativa');
-    if (!telaAtiva) return;
-
-    // Procura qual foto está visível no momento
-    const slideVisivel = Array.from(telaAtiva.querySelectorAll('.card-foto-slide'))
-                              .find(slide => slide.style.display !== 'none');
-
-    if (slideVisivel) {
-        PassarPrato(slideVisivel);
-    }
-}
-
-// Ao carregar a página pela primeira vez, ajusta as telas
-document.addEventListener('DOMContentLoaded', () => {
-    const telaInicial = document.getElementById('tela-menu');
-    if (telaInicial) {
-        inicializarSlides(telaInicial);
-    }
-});
-            function abrirTela(idTela) {
-        // 1. Remove a classe 'ativa' de todas as telas (esconde tudo)
-         const telas = document.querySelectorAll('.tela');
-        telas.forEach(tela => tela.classList.remove('ativa'));
-
-        // 2. Procura a tela pelo ID recebido e adiciona a classe 'ativa' (mostra na tela)
-        const telaDesejada = document.getElementById(idTela);
-        if (telaDesejada) {
-        telaDesejada.classList.add('ativa');
-        }
-        }
-        
-        </script>
     </div>
+
+    <script>
+        function abrirTela(idTela) {
+            // 1. Esconde todas as telas
+            const telas = document.querySelectorAll('.tela');
+            telas.forEach(tela => tela.classList.remove('ativa'));
+
+            // 2. Exibe a tela desejada
+            const telaDesejada = document.getElementById(idTela);
+            if (telaDesejada) {
+                telaDesejada.classList.add('ativa');
+                inicializarSlides(telaDesejada);
+            }
+        }
+
+        function inicializarSlides(tela) {
+            const slides = tela.querySelectorAll('.card-foto-slide');
+            slides.forEach((slide, index) => {
+                slide.style.display = (index === 0) ? 'block' : 'none';
+            });
+        }
+
+        function PassarPrato(elementoClicado) {
+            const telaAtual = elementoClicado.parentElement;
+            const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
+            
+            if (slides.length <= 1) return;
+
+            const indiceAtual = slides.indexOf(elementoClicado);
+            const proximoIndice = (indiceAtual + 1) % slides.length;
+
+            elementoClicado.style.display = 'none';
+            slides[proximoIndice].style.display = 'block';
+        }
+
+        // Prepara os slides ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            const telaInicial = document.getElementById('tela-menu');
+            if (telaInicial) {
+                inicializarSlides(telaInicial);
+            }
+        });
+    </script>
 </body>
 </html>
