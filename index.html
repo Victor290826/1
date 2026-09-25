@@ -92,6 +92,16 @@
             color: var(--cor-texto);
             font-size: 1.1rem;
         }
+         .btn-anterior {
+           background-color: var(--cor-botao);
+           color: white;
+           text-align: left;
+        }
+        .btn-proximo {
+            background-color: var(--cor-botao);
+           color: white;
+           text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +158,8 @@
                 <img src="escondidinho.jpg" alt="Escondidinho de Carne">
                 <p class="card-desc">Escondidinho de Carne</p>
             </div>
+            <button class="btn-anterior" onclick="voltarPrato">Antetior</button>
+           <button class="btn-proximo" onclick="passarPrato">Próximo</button>
         </div>
 
         <!-- Tela de Sobremesa -->
