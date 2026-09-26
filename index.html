@@ -161,13 +161,13 @@
             background-color: var(--cor-destaque);
         }
 
-        /* Estilos de Formulário */
+        /* Estilos de Formulário e Campos de Seleção */
         .campo-reserva {
             display: flex;
             flex-direction: column;
             gap: 8px;
             text-align: left;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .campo-reserva label {
             font-weight: bold;
@@ -184,21 +184,25 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        .input-num {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        .select-reserva, .input-num {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
             text-align: center;
             font-size: 1rem;
             color: var(--cor-texto);
             background-color: #fff;
             box-sizing: border-box;
+            cursor: pointer;
         }
         .input-pequeno {
-            width: 70px;
+            width: 80px;
         }
         .input-medio {
-            width: 90px;
+            width: 105px;
+        }
+        .input-grande {
+            width: 100%;
         }
     </style>
 </head>
@@ -234,7 +238,7 @@
             </div>
         </div>
 
-        <!-- Tela de Cardápio Completo (Pratos, Bebidas e Sobremesas) -->
+        <!-- Tela de Cardápio Completo -->
         <div id="tela-cardapio" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Cardápio Completo</h2>
@@ -295,7 +299,7 @@
             <div class="card-foto-slide" onclick="PassarPrato(this)">
                 <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 6,00</div>
-                <img src="suco1.webp" alt="Suco 1L">
+                <img src="suco1.jpg" alt="Suco 1L">
                 <p class="card-desc">8. Suco Del valle 1L</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Suco 1L', 6.00)">Adicionar ao carrinho</button>
             </div>
@@ -395,7 +399,7 @@
 
                     <div id="campo-troco" style="display: none; margin-top: 10px;">
                         <label style="font-size: 0.9rem; font-weight: bold; color: var(--cor-texto);">Precisa de troco para quanto?</label>
-                        <input type="number" id="valor-troco" class="input-num" style="width: 100%; margin-top: 5px;" placeholder="Ex: 50,00" step="0.01">
+                        <input type="number" id="valor-troco" class="input-num input-grande" style="margin-top: 5px;" placeholder="Ex: 50,00" step="0.01">
                     </div>
 
                     <button class="btn-add-carrinho" style="width: 100%; margin-top: 15px;" onclick="finalizarPedido()">Finalizar Pedido</button>
@@ -405,40 +409,96 @@
             </div>
         </div>
 
-        <!-- Tela de Reservas -->
+        <!-- Tela de Reservas com Seleção por Lista/Dropdown -->
         <div id="tela-reservas" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Reservas</h2>
             <p class="card-desc">Faça sua reserva conosco!</p>
 
             <div class="card-menu" style="cursor: default;">
-                <p class="card-desc">Escolha a data e horário para sua mesa:</p>
+                <p class="card-desc">Selecione a data e o horário desejado:</p>
 
                 <form onsubmit="confirmarReserva(event)">
-                    <!-- Seleção de Data -->
+                    <!-- Seleção de Data por Dropdown -->
                     <div class="campo-reserva">
-                        <label>Data (Dia / Mês / Ano):</label>
+                        <label>Data da Reserva:</label>
                         <div class="grupo-reserva">
-                            <input type="number" id="reserva-dia" class="input-num input-pequeno" min="1" max="31" placeholder="Dia" required>
-                            <input type="number" id="reserva-mes" class="input-num input-pequeno" min="1" max="12" placeholder="Mês" required>
-                            <input type="number" id="reserva-ano" class="input-num input-medio" min="2026" max="2030" value="2026" placeholder="Ano" required>
+                            <select id="reserva-dia" class="select-reserva input-pequeno" required>
+                                <option value="" disabled selected>Dia</option>
+                                <option value="01">01</option><option value="02">02</option><option value="03">03</option><option value="04">04</option><option value="05">05</option>
+                                <option value="06">06</option><option value="07">07</option><option value="08">08</option><option value="09">09</option><option value="10">10</option>
+                                <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+                                <option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option>
+                                <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option>
+                                <option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+
+                            <select id="reserva-mes" class="select-reserva input-medio" required>
+                                <option value="" disabled selected>Mês</option>
+                                <option value="01">Janeiro</option>
+                                <option value="02">Fevereiro</option>
+                                <option value="03">Março</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Maio</option>
+                                <option value="06">Junho</option>
+                                <option value="07">Julho</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+
+                            <select id="reserva-ano" class="select-reserva input-medio" required>
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Seleção de Horário -->
+                    <!-- Seleção de Horário por Dropdown (Sem Digitação) -->
                     <div class="campo-reserva">
-                        <label>Horário (Hora : Minuto):</label>
+                        <label>Horário da Reserva:</label>
                         <div class="grupo-reserva">
-                            <input type="number" id="reserva-hora" class="input-num input-pequeno" min="0" max="23" placeholder="Hora" required>
-                            <input type="number" id="reserva-minuto" class="input-num input-pequeno" min="0" max="59" placeholder="Min" required>
+                            <select id="reserva-hora" class="select-reserva input-medio" required>
+                                <option value="" disabled selected>Hora</option>
+                                <option value="11">11:00</option>
+                                <option value="12">12:00</option>
+                                <option value="13">13:00</option>
+                                <option value="14">14:00</option>
+                                <option value="15">15:00</option>
+                                <option value="18">18:00</option>
+                                <option value="19">19:00</option>
+                                <option value="20">20:00</option>
+                                <option value="21">21:00</option>
+                                <option value="22">22:00</option>
+                            </select>
+
+                            <select id="reserva-minuto" class="select-reserva input-medio" required>
+                                <option value="" disabled selected>Minuto</option>
+                                <option value="00">:00 min</option>
+                                <option value="15">:15 min</option>
+                                <option value="30">:30 min</option>
+                                <option value="45">:45 min</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- Número de Pessoas -->
+                    <!-- Quantidade de Pessoas por Dropdown -->
                     <div class="campo-reserva">
                         <label>Quantidade de Pessoas:</label>
                         <div class="grupo-reserva">
-                            <input type="number" id="reserva-pessoas" class="input-num input-medio" min="1" max="30" value="2" required>
+                            <select id="reserva-pessoas" class="select-reserva input-grande" required>
+                                <option value="1">1 Pessoa</option>
+                                <option value="2" selected>2 Pessoas</option>
+                                <option value="3">3 Pessoas</option>
+                                <option value="4">4 Pessoas</option>
+                                <option value="5">5 Pessoas</option>
+                                <option value="6">6 Pessoas</option>
+                                <option value="8">8 Pessoas (Mesa Grande)</option>
+                                <option value="10">10+ Pessoas (Grupo)</option>
+                            </select>
                         </div>
                     </div>
 
@@ -474,10 +534,8 @@
     </div>
 
     <script>
-        // Array global para salvar os itens do carrinho
         let carrinho = [];
 
-        // Controle da navegação (histórico do telemóvel/celular)
         function abrirTela(idTela, pushHistory = true) {
             const telas = document.querySelectorAll('.tela');
             telas.forEach(tela => tela.classList.remove('ativa'));
@@ -611,7 +669,6 @@
             if (secaoPagamento) secaoPagamento.style.display = 'block';
         }
 
-        // Finalização com Geração de Link de Pagamento
         function finalizarPedido() {
             if (carrinho.length === 0) {
                 alert("O seu carrinho está vazio!");
@@ -629,9 +686,8 @@
             }
 
             const total = carrinho.reduce((acc, item) => acc + item.preco, 0);
-            const numPedido = Math.floor(100000 + Math.random() * 900000); // Gera um número aleatório de pedido
+            const numPedido = Math.floor(100000 + Math.random() * 900000);
             
-            // Geração dinâmica do link de pagamento
             const urlPagamento = `https://pagamento.casadosabor.com.br/pay?pedido=${numPedido}&valor=${total.toFixed(2)}&metodo=${encodeURIComponent(formaPagamento)}`;
 
             const msgPedido = document.getElementById('mensagem-pedido');
@@ -647,21 +703,21 @@
                 </div>
             `;
 
-            // Limpa o carrinho
             carrinho = [];
             document.getElementById('lista-carrinho').innerHTML = '<p class="card-desc">Seu carrinho está vazio.</p>';
             document.getElementById('total-carrinho').innerText = 'R$ 0,00';
             document.getElementById('secao-pagamento').style.display = 'none';
         }
 
+        // Função de Reserva de Mesa Atualizada
         function confirmarReserva(event) {
             event.preventDefault();
 
-            const dia = document.getElementById('reserva-dia').value.padStart(2, '0');
-            const mes = document.getElementById('reserva-mes').value.padStart(2, '0');
+            const dia = document.getElementById('reserva-dia').value;
+            const mes = document.getElementById('reserva-mes').value;
             const ano = document.getElementById('reserva-ano').value;
-            const hora = document.getElementById('reserva-hora').value.padStart(2, '0');
-            const minuto = document.getElementById('reserva-minuto').value.padStart(2, '0');
+            const hora = document.getElementById('reserva-hora').value;
+            const minuto = document.getElementById('reserva-minuto').value;
             const pessoas = document.getElementById('reserva-pessoas').value;
 
             const divMensagem = document.getElementById('mensagem-reserva');
