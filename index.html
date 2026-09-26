@@ -66,6 +66,16 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        .categoria-tag {
+            display: inline-block;
+            background-color: var(--cor-destaque);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
         .btn-voltar {
             background-color: var(--cor-botao);
             color: white;
@@ -151,7 +161,7 @@
             background-color: var(--cor-destaque);
         }
 
-        /* Estilos de Formulário (Reserva e Pagamento) */
+        /* Estilos de Formulário */
         .campo-reserva {
             display: flex;
             flex-direction: column;
@@ -200,19 +210,11 @@
         <!-- Menu Principal -->
         <div id="tela-menu" class="tela ativa">
             <h2 class="card-titulo">Menu Principal</h2>
-            <p class="card-desc">Escolha um prato delicioso!</p>
+            <p class="card-desc">Escolha uma opção!</p>
 
-            <div class="card-menu" onclick="abrirTela('tela-prato-principal')">
-                <h3 class="card-titulo">Cardápio</h3>
-                <p class="card-desc">Conheça nossos pratos principais caseiros e mais suculentos.</p>
-            </div>
-            <div class="card-menu" onclick="abrirTela('tela-bebidas')">
-                <h3 class="card-titulo">Bebidas</h3>
-                <p class="card-desc">Conheça nossas melhores bebidas.</p>
-            </div>
-            <div class="card-menu" onclick="abrirTela('tela-sobremesa')">
-                <h3 class="card-titulo">Sobremesas</h3>
-                <p class="card-desc">As melhores e mais doces tentações da casa.</p>
+            <div class="card-menu" onclick="abrirTela('tela-cardapio')">
+                <h3 class="card-titulo">Cardápio Completo</h3>
+                <p class="card-desc">Conheça nossos pratos, bebidas e sobremesas deliciosas.</p>
             </div>
             <div class="card-menu" onclick="abrirTela('tela-carrinho')">
                 <h3 class="card-titulo">Carrinho</h3>
@@ -232,140 +234,134 @@
             </div>
         </div>
 
-        <!-- Tela de Seleção de Prato -->
-        <div id="tela-prato-principal" class="tela">
+        <!-- Tela de Cardápio Completo (Pratos, Bebidas e Sobremesas) -->
+        <div id="tela-cardapio" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
-            <h2 class="card-titulo">Seleção de Prato</h2>
-            <p class="card-desc">Clique na foto para passar para o próximo prato!</p>
+            <h2 class="card-titulo">Cardápio Completo</h2>
+            <p class="card-desc">Clique na foto ou use os botões para navegar!</p>
 
+            <!-- PRATOS PRINCIPAIS -->
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Prato Principal</span>
                 <div class="preco-prato">R$ 25,00</div>
                 <img src="creme.jpg" alt="Creme de Frango">
                 <p class="card-desc">1. Creme de Frango</p>            
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Creme de Frango', 25.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Prato Principal</span>
                 <div class="preco-prato">R$ 22,00</div>
                 <img src="macarronada.jfif" alt="Macarronada">
                 <p class="card-desc">2. Macarronada</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Macarronada', 22.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Prato Principal</span>
                 <div class="preco-prato">R$ 20,00</div>
                 <img src="empanado.jfif" alt="Empanado">
                 <p class="card-desc">3. Empanado</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Empanado', 20.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Prato Principal</span>
                 <div class="preco-prato">R$ 28,00</div>
                 <img src="escondidinho.jpg" alt="Escondidinho de Carne">
                 <p class="card-desc">4. Escondidinho de Carne</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Escondidinho de Carne', 28.00)">Adicionar ao Carrinho</button>
             </div>
 
-            <button class="btn-anterior" onclick="voltarPrato(this)">Anterior</button>
-            <button class="btn-proximo" onclick="passarPrato(this)">Próximo</button>
-        </div>
-
-        <!-- Tela Bebidas -->
-        <div id="tela-bebidas" class="tela">
-            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
-            <h2 class="card-titulo">Bebidas</h2>
-            <p class="card-desc">Confira nossas melhores bebidas.</p>
-
+            <!-- BEBIDAS -->
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 9,00</div>
                 <img src="coca2.jpeg" alt="Refrigerante 2L">
-                <p class="card-desc">1. Refrigerante 2L</p>
+                <p class="card-desc">5. Refrigerante 2L</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Refrigerante 2L', 9.00)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 6,00</div>
                 <img src="refri1.jpg" alt="Refrigerante 1L">
-                <p class="card-desc">2. Refrigerante 1L</p>
+                <p class="card-desc">6. Refrigerante 1L</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Refrigerante 1L', 6.00)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 3,50</div>
                 <img src="refri350.jfif" alt="Refrigerante 350ml">
-                <p class="card-desc">3. Refrigerante 350ml</p>
+                <p class="card-desc">7. Refrigerante 350ml</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Refrigerante 350ml', 3.50)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 6,00</div>
-                <img src="suco1.webp" alt="Suco 1L">
-                <p class="card-desc">4. Suco Del valle 1L</p>
+                <img src="suco1.jpg" alt="Suco 1L">
+                <p class="card-desc">8. Suco Del valle 1L</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Suco 1L', 6.00)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 3,50</div>
                 <img src="suco450.jpg" alt="Suco 450ml">
-                <p class="card-desc">5. Suco Del Valle 450ml</p>
+                <p class="card-desc">9. Suco Del Valle 450ml</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Suco 450ml', 3.50)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 12,00</div>
                 <img src="sucoj.jpg" alt="SucoJarra">
-                <p class="card-desc">6. Suco da Fruta Jarra</p>
+                <p class="card-desc">10. Suco da Fruta Jarra</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'SucoJarra', 12.00)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 6,00</div>
                 <img src="agua1.jfif" alt="Agua 1L">
-                <p class="card-desc">7. Água 1L</p>
+                <p class="card-desc">11. Água 1L</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Agua 1L', 6.00)">Adicionar ao carrinho</button>
             </div>
-
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Bebida</span>
                 <div class="preco-prato">R$ 3,00</div>
                 <img src="agua350.webp" alt="Agua 350">
-                <p class="card-desc">8. Água 350ml</p>
+                <p class="card-desc">12. Água 350ml</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Agua 350', 3.00)">Adicionar ao carrinho</button>
             </div>
-            <button class="btn-anterior" onclick="voltarPrato(this)">Anterior</button>
-            <button class="btn-proximo" onclick="passarPrato(this)">Próximo</button>
-        </div>
 
-        <!-- Tela de Sobremesa -->
-        <div id="tela-sobremesa" class="tela">
-            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
-            <h2 class="card-titulo">Sobremesas</h2>
-            <p class="card-desc">Confira nossas deliciosas sobremesas!</p>
-
+            <!-- SOBREMESAS -->
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Sobremesa</span>
                 <div class="preco-prato">R$ 18,00</div>
                 <img src="açai.jpeg" alt="Açaí">
-                <p class="card-desc">1. Açaí (Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
+                <p class="card-desc">13. Açaí (Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Açaí', 18.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Sobremesa</span>
                 <div class="preco-prato">R$ 12,00</div>
                 <img src="sorvete.webp" alt="Sorvete">
-                <p class="card-desc">2. Sorvete (Creme, Chocolate, Baunilha, Pavê)</p>
+                <p class="card-desc">14. Sorvete (Creme, Chocolate, Baunilha, Pavê)</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Sorvete', 12.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Sobremesa</span>
                 <div class="preco-prato">R$ 10,00</div>
                 <img src="bolo.jfif" alt="Bolo">
-                <p class="card-desc">3. Bolo (Chocolate, Cenoura, Fubá, Laranja)</p>
+                <p class="card-desc">15. Bolo (Chocolate, Cenoura, Fubá, Laranja)</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Bolo', 10.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Sobremesa</span>
                 <div class="preco-prato">R$ 12,00</div>
                 <img src="pudim.webp" alt="Pudim">
-                <p class="card-desc">4. Pudim</p>
+                <p class="card-desc">16. Pudim</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Pudim', 12.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <span class="categoria-tag">Sobremesa</span>
                 <div class="preco-prato">R$ 14,00</div>
                 <img src="torta.webp" alt="Torta">
-                <p class="card-desc">5. Torta (Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
+                <p class="card-desc">17. Torta (Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
                 <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Torta', 14.00)">Adicionar ao Carrinho</button>
             </div>
 
@@ -405,7 +401,7 @@
                     <button class="btn-add-carrinho" style="width: 100%; margin-top: 15px;" onclick="finalizarPedido()">Finalizar Pedido</button>
                 </div>
 
-                <div id="mensagem-pedido" style="margin-top: 15px; font-weight: bold; color: var(--cor-destaque);"></div>
+                <div id="mensagem-pedido" style="margin-top: 15px;"></div>
             </div>
         </div>
 
@@ -481,7 +477,7 @@
         // Array global para salvar os itens do carrinho
         let carrinho = [];
 
-        // Controle da navegação (histórico do telemóvel)
+        // Controle da navegação (histórico do telemóvel/celular)
         function abrirTela(idTela, pushHistory = true) {
             const telas = document.querySelectorAll('.tela');
             telas.forEach(tela => tela.classList.remove('ativa'));
@@ -492,13 +488,11 @@
                 inicializarSlides(telaDesejada);
             }
 
-            // Regista a navegação no histórico
             if (pushHistory) {
                 history.pushState({ tela: idTela }, '', `#${idTela}`);
             }
         }
 
-        // Função do botão "Voltar" nos menus
         function voltarPagina() {
             if (history.state && history.state.tela !== 'tela-menu') {
                 history.back();
@@ -507,7 +501,6 @@
             }
         }
 
-        // Listener para o botão "Voltar" nativo do telemóvel/navegador
         window.addEventListener('popstate', (event) => {
             if (event.state && event.state.tela) {
                 abrirTela(event.state.tela, false);
@@ -523,7 +516,6 @@
             });
         }
 
-        // Passar prato ao clicar no cartão/foto
         function PassarPrato(elementoClicado) {
             const telaAtual = elementoClicado.parentElement;
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -563,7 +555,6 @@
             slides[anteriorIndice].style.display = 'block';
         }
 
-        // Adicionar item ao carrinho
         function adicionarAoCarrinho(event, nome, preco) {
             event.stopPropagation();
             carrinho.push({ nome, preco });
@@ -571,20 +562,17 @@
             alert(`"${nome}" foi adicionado ao seu carrinho!`);
         }
 
-        // Remover item do carrinho
         function removerDoCarrinho(index) {
             carrinho.splice(index, 1);
             atualizarCarrinho();
         }
 
-        // Exibir/Esconder o campo de Troco quando selecionado Dinheiro
         function toggleTroco() {
             const ehDinheiro = document.getElementById('pagamento-dinheiro').checked;
             const campoTroco = document.getElementById('campo-troco');
             campoTroco.style.display = ehDinheiro ? 'block' : 'none';
         }
 
-        // Atualizar a visualização do carrinho
         function atualizarCarrinho() {
             const containerCarrinho = document.getElementById('lista-carrinho');
             const totalElemento = document.getElementById('total-carrinho');
@@ -593,7 +581,7 @@
 
             if (!containerCarrinho) return;
 
-            if (msgPedido) msgPedido.innerText = '';
+            if (msgPedido) msgPedido.innerHTML = '';
 
             if (carrinho.length === 0) {
                 containerCarrinho.innerHTML = '<p class="card-desc">Seu carrinho está vazio.</p>';
@@ -623,7 +611,7 @@
             if (secaoPagamento) secaoPagamento.style.display = 'block';
         }
 
-        // Finalização da Compra
+        // Finalização com Geração de Link de Pagamento
         function finalizarPedido() {
             if (carrinho.length === 0) {
                 alert("O seu carrinho está vazio!");
@@ -641,11 +629,23 @@
             }
 
             const total = carrinho.reduce((acc, item) => acc + item.preco, 0);
+            const numPedido = Math.floor(100000 + Math.random() * 900000); // Gera um número aleatório de pedido
+            
+            // Geração dinâmica do link de pagamento
+            const urlPagamento = `https://pagamento.casadosabor.com.br/pay?pedido=${numPedido}&valor=${total.toFixed(2)}&metodo=${encodeURIComponent(formaPagamento)}`;
+
             const msgPedido = document.getElementById('mensagem-pedido');
 
-            msgPedido.innerHTML = `🎉 Pedido realizado com sucesso!<br>
-                <strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}<br>
-                <strong>Pagamento:</strong> ${formaPagamento}${detalheTroco}`;
+            msgPedido.innerHTML = `
+                <div style="background-color: #fff; padding: 15px; border-radius: 8px; border: 1px solid var(--cor-destaque); text-align: center;">
+                    <p style="margin: 0 0 10px 0; color: var(--cor-destaque); font-size: 1.2rem; font-weight: bold;">🎉 Pedido #${numPedido} Gerado!</p>
+                    <p style="margin: 5px 0; font-size: 1rem;"><strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}</p>
+                    <p style="margin: 5px 0; font-size: 0.95rem;"><strong>Forma de Pagamento:</strong> ${formaPagamento}${detalheTroco}</p>
+                    <a href="${urlPagamento}" target="_blank" class="btn-add-carrinho" style="display: inline-block; text-decoration: none; margin-top: 10px; padding: 12px 20px;">
+                        💳 Clique Aqui para Pagar
+                    </a>
+                </div>
+            `;
 
             // Limpa o carrinho
             carrinho = [];
@@ -654,7 +654,6 @@
             document.getElementById('secao-pagamento').style.display = 'none';
         }
 
-        // Confirmar reserva
         function confirmarReserva(event) {
             event.preventDefault();
 
@@ -669,9 +668,7 @@
             divMensagem.innerHTML = `✅ Reserva confirmada para <strong>${dia}/${mes}/${ano}</strong> às <strong>${hora}:${minuto}</strong> para <strong>${pessoas} pessoa(s)</strong>!`;
         }
 
-        // Inicialização da página
         document.addEventListener('DOMContentLoaded', () => {
-            // Substitui o estado inicial para permitir navegar de volta ao menu
             history.replaceState({ tela: 'tela-menu' }, '', '#tela-menu');
             
             const telaInicial = document.getElementById('tela-menu');
