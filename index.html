@@ -95,17 +95,7 @@
             color: var(--cor-texto);
             font-size: 1.1rem;
         }
-        .btn-anterior {
-            background-color: var(--cor-botao);
-            color: white;
-            text-align: center;
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            margin: 10px 10px;
-        }
-        .btn-proximo {
+        .btn-anterior, .btn-proximo {
             background-color: var(--cor-botao);
             color: white;
             text-align: center;
@@ -119,7 +109,7 @@
             background-color: var(--cor-destaque);
         }
 
-        /* Novas Estilizações para Preço e Carrinho */
+        /* Preços e Carrinho */
         .preco-prato {
             color: var(--cor-destaque);
             font-size: 1.4rem;
@@ -159,6 +149,41 @@
         }
         .btn-remover-item:hover {
             background-color: var(--cor-destaque);
+        }
+
+        /* Estilos da Tela de Reserva */
+        .campo-reserva {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .campo-reserva label {
+            font-weight: bold;
+            color: var(--cor-texto);
+            font-size: 0.95rem;
+        }
+        .grupo-reserva {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .input-num {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            color: var(--cor-texto);
+            background-color: #fff;
+        }
+        .input-pequeno {
+            width: 70px;
+        }
+        .input-medio {
+            width: 90px;
         }
     </style>
 </head>
@@ -203,7 +228,6 @@
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
             <h2 class="card-titulo">Seleção de Prato</h2>
             <p class="card-desc">Clique na foto para passar para o próximo prato!</p>
-            <p class="card-desc">Ou clique nos botões anterior ou próximo.</p>
 
             <div class="card-foto-slide" onclick="PassarPrato(this)">
                 <div class="preco-prato">R$ 25,00</div>
@@ -290,6 +314,50 @@
             </div>
         </div>
 
+        <!-- Tela de Reservas -->
+        <div id="tela-reservas" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 class="card-titulo">Reservas</h2>
+            <p class="card-desc">Faça sua reserva conosco!</p>
+
+            <div class="card-menu" style="cursor: default;">
+                <p class="card-desc">Escolha a data e horário para sua mesa:</p>
+
+                <form onsubmit="confirmarReserva(event)">
+                    <!-- Seleção de Data -->
+                    <div class="campo-reserva">
+                        <label>Data (Dia / Mês / Ano):</label>
+                        <div class="grupo-reserva">
+                            <input type="number" id="reserva-dia" class="input-num input-pequeno" min="1" max="31" placeholder="Dia" required>
+                            <input type="number" id="reserva-mes" class="input-num input-pequeno" min="1" max="12" placeholder="Mês" required>
+                            <input type="number" id="reserva-ano" class="input-num input-medio" min="2026" max="2030" value="2026" placeholder="Ano" required>
+                        </div>
+                    </div>
+
+                    <!-- Seleção de Horário -->
+                    <div class="campo-reserva">
+                        <label>Horário (Hora : Minuto):</label>
+                        <div class="grupo-reserva">
+                            <input type="number" id="reserva-hora" class="input-num input-pequeno" min="0" max="23" placeholder="Hora" required>
+                            <input type="number" id="reserva-minuto" class="input-num input-pequeno" min="0" max="59" placeholder="Min" required>
+                        </div>
+                    </div>
+
+                    <!-- Número de Pessoas -->
+                    <div class="campo-reserva">
+                        <label>Quantidade de Pessoas:</label>
+                        <div class="grupo-reserva">
+                            <input type="number" id="reserva-pessoas" class="input-num input-medio" min="1" max="30" value="2" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-add-carrinho" style="width: 100%; margin-top: 15px;">Confirmar Reserva</button>
+                </form>
+
+                <div id="mensagem-reserva" style="margin-top: 15px; font-weight: bold; color: var(--cor-destaque);"></div>
+            </div>
+        </div>
+
         <!-- Tela de Localização -->
         <div id="tela-localizacao" class="tela">
             <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
@@ -298,19 +366,6 @@
 
             <div class="card-menu">
                 <p class="card-desc">Ainda estamos providenciando um Restaurante físico.</p>
-            </div>
-        </div>
-
-        <!-- Tela de Reservas -->
-        <div id="tela-reservas" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
-            <h2 class="card-titulo">Reservas</h2>
-            <p class="card-desc">Faça sua reserva conosco!</p>
-
-            <div class="card-menu">
-                <p class="card-desc">Escolha a data e o horário para sua reserva.</p>
-                <p class="card-desc">Entre em contato para mais informações.</p>
-                <p class="card-desc">Contato: (11) 1234-5678</p>
             </div>
         </div>
 
@@ -328,7 +383,7 @@
     </div>
 
     <script>
-        // Array global do carrinho
+        // Array global para salvar os itens do carrinho
         let carrinho = [];
 
         function abrirTela(idTela) {
@@ -351,7 +406,7 @@
             });
         }
 
-        // Passar prato ao clicar no cartão da foto
+        // Passar prato ao clicar no próprio cartão/foto
         function PassarPrato(elementoClicado) {
             const telaAtual = elementoClicado.parentElement;
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -395,7 +450,7 @@
 
         // Adicionar item ao carrinho
         function adicionarAoCarrinho(event, nome, preco) {
-            event.stopPropagation(); // Impede de trocar o slide ao clicar no botão
+            event.stopPropagation(); // Impede que o clique no botão passe o slide da imagem
             carrinho.push({ nome, preco });
             atualizarCarrinho();
             alert(`"${nome}" foi adicionado ao seu carrinho!`);
@@ -407,7 +462,7 @@
             atualizarCarrinho();
         }
 
-        // Atualizar o visual do carrinho
+        // Atualizar visual do carrinho
         function atualizarCarrinho() {
             const containerCarrinho = document.getElementById('lista-carrinho');
             const totalElemento = document.getElementById('total-carrinho');
@@ -438,6 +493,21 @@
 
             containerCarrinho.innerHTML = html;
             if (totalElemento) totalElemento.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        // Confirmar a reserva com as opções de números digitadas
+        function confirmarReserva(event) {
+            event.preventDefault(); // Evita recarregar a página ao enviar o formulário
+
+            const dia = document.getElementById('reserva-dia').value.padStart(2, '0');
+            const mes = document.getElementById('reserva-mes').value.padStart(2, '0');
+            const ano = document.getElementById('reserva-ano').value;
+            const hora = document.getElementById('reserva-hora').value.padStart(2, '0');
+            const minuto = document.getElementById('reserva-minuto').value.padStart(2, '0');
+            const pessoas = document.getElementById('reserva-pessoas').value;
+
+            const divMensagem = document.getElementById('mensagem-reserva');
+            divMensagem.innerHTML = `✅ Reserva confirmada para <strong>${dia}/${mes}/${ano}</strong> às <strong>${hora}:${minuto}</strong> para <strong>${pessoas} pessoa(s)</strong>!`;
         }
 
         // Prepara os slides ao carregar a página
