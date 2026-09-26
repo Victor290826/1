@@ -161,13 +161,13 @@
             background-color: var(--cor-destaque);
         }
 
-        /* Estilos de Formulário e Campos de Seleção */
+        /* Estilos de Formulário e Entradas */
         .campo-reserva {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             text-align: left;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .campo-reserva label {
             font-weight: bold;
@@ -188,12 +188,10 @@
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 6px;
-            text-align: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--cor-texto);
             background-color: #fff;
             box-sizing: border-box;
-            cursor: pointer;
         }
         .input-pequeno {
             width: 80px;
@@ -226,11 +224,11 @@
             </div>
             <div class="card-menu" onclick="abrirTela('tela-reservas')">
                 <h3 class="card-titulo">Reservas</h3>
-                <p class="card-desc">Reserve sua mesa agora!</p>
+                <p class="card-desc">Reserve sua mesa para eventos futuros!</p>
             </div>
             <div class="card-menu" onclick="abrirTela('tela-localizacao')">
-                <h3 class="card-titulo">Localização</h3>
-                <p class="card-desc">Encontre nosso restaurante</p>
+                <h3 class="card-titulo">Localização & Delivery</h3>
+                <p class="card-desc">Saiba como entregamos até você</p>
             </div>
             <div class="card-menu" onclick="abrirTela('tela-contato')">
                 <h3 class="card-titulo">Contato</h3>
@@ -377,7 +375,7 @@
         <div id="tela-carrinho" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Carrinho</h2>
-            <p class="card-desc">Encontre os pedidos que você se interessou aqui.</p>
+            <p class="card-desc">Confira seus itens e informe o endereço para entrega.</p>
 
             <div class="card-menu" style="cursor: default;">
                 <div id="lista-carrinho">
@@ -386,8 +384,40 @@
                 <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
                 <h3 class="card-titulo" style="font-size: 1.3rem;">Total: <span id="total-carrinho">R$ 0,00</span></h3>
 
-                <!-- Opções de Pagamento -->
+                <!-- Formulário de Endereço e Pagamento -->
                 <div id="secao-pagamento" style="display: none; margin-top: 20px; text-align: left;">
+                    
+                    <!-- ENDEREÇO DE ENTREGA DO CLIENTE -->
+                    <h3 class="card-titulo" style="font-size: 1.1rem; margin-bottom: 10px;">Endereço de Entrega:</h3>
+                    
+                    <button type="button" class="btn-voltar" style="background-color: var(--cor-destaque); width: 100%; margin-bottom: 12px; font-size: 0.9rem;" onclick="obterLocalizacaoGPS()">
+                        📍 Usar minha localização atual (GPS)
+                    </button>
+
+                    <div class="campo-reserva">
+                        <label>Rua / Avenida:*</label>
+                        <input type="text" id="end-rua" class="input-num input-grande" placeholder="Ex: Av. Principal" required>
+                    </div>
+
+                    <div class="campo-reserva" style="display: flex; gap: 8px;">
+                        <div style="flex: 1;">
+                            <label>Número:*</label>
+                            <input type="text" id="end-numero" class="input-num input-grande" placeholder="Ex: 123" required>
+                        </div>
+                        <div style="flex: 2;">
+                            <label>Bairro:*</label>
+                            <input type="text" id="end-bairro" class="input-num input-grande" placeholder="Ex: Centro" required>
+                        </div>
+                    </div>
+
+                    <div class="campo-reserva">
+                        <label>Complemento / Ref.:</label>
+                        <input type="text" id="end-complemento" class="input-num input-grande" placeholder="Ex: Apto 101, Próximo à praça">
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+
+                    <!-- FORMA DE PAGAMENTO -->
                     <h3 class="card-titulo" style="font-size: 1.1rem; margin-bottom: 10px;">Forma de Pagamento:</h3>
                     
                     <div class="campo-reserva">
@@ -409,17 +439,16 @@
             </div>
         </div>
 
-        <!-- Tela de Reservas com Seleção por Lista/Dropdown -->
+        <!-- Tela de Reservas -->
         <div id="tela-reservas" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Reservas</h2>
-            <p class="card-desc">Faça sua reserva conosco!</p>
+            <p class="card-desc">Faça sua reserva para eventos ou encomendas especializadas!</p>
 
             <div class="card-menu" style="cursor: default;">
                 <p class="card-desc">Selecione a data e o horário desejado:</p>
 
                 <form onsubmit="confirmarReserva(event)">
-                    <!-- Seleção de Data por Dropdown -->
                     <div class="campo-reserva">
                         <label>Data da Reserva:</label>
                         <div class="grupo-reserva">
@@ -457,7 +486,6 @@
                         </div>
                     </div>
 
-                    <!-- Seleção de Horário por Dropdown (Sem Digitação) -->
                     <div class="campo-reserva">
                         <label>Horário da Reserva:</label>
                         <div class="grupo-reserva">
@@ -485,7 +513,6 @@
                         </div>
                     </div>
 
-                    <!-- Quantidade de Pessoas por Dropdown -->
                     <div class="campo-reserva">
                         <label>Quantidade de Pessoas:</label>
                         <div class="grupo-reserva">
@@ -512,11 +539,13 @@
         <!-- Tela de Localização -->
         <div id="tela-localizacao" class="tela">
             <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
-            <h2 class="card-titulo">Localização</h2>
-            <p class="card-desc">Encontre nosso restaurante!</p>
+            <h2 class="card-titulo">Localização & Delivery</h2>
+            <p class="card-desc">Como funcionam as nossas entregas!</p>
 
-            <div class="card-menu">
-                <p class="card-desc">Ainda estamos providenciando um Restaurante físico.</p>
+            <div class="card-menu" style="cursor: default;">
+                <p class="card-desc"><strong>🚀 Atendimento Exclusivo via Delivery!</strong></p>
+                <p class="card-desc">Ainda não possuímos um restaurante físico aberto ao público. Preparamos e entregamos sua refeição quentinha e saborosa diretamente na sua casa!</p>
+                <button class="btn-add-carrinho" onclick="abrirTela('tela-cardapio')">Ver Cardápio e Fazer Pedido</button>
             </div>
         </div>
 
@@ -631,6 +660,25 @@
             campoTroco.style.display = ehDinheiro ? 'block' : 'none';
         }
 
+        // Função para obter localização GPS do telemóvel/celular
+        function obterLocalizacaoGPS() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        document.getElementById('end-complemento').value = `GPS: Lat ${lat.toFixed(5)}, Lng ${lng.toFixed(5)}`;
+                        alert("Localização obtida via GPS com sucesso!");
+                    },
+                    (error) => {
+                        alert("Não foi possível obter sua localização automaticamente. Por favor, preencha os campos abaixo.");
+                    }
+                );
+            } else {
+                alert("Seu navegador não suporta a função de GPS.");
+            }
+        }
+
         function atualizarCarrinho() {
             const containerCarrinho = document.getElementById('lista-carrinho');
             const totalElemento = document.getElementById('total-carrinho');
@@ -675,6 +723,17 @@
                 return;
             }
 
+            // Validação do Endereço
+            const rua = document.getElementById('end-rua').value.trim();
+            const numero = document.getElementById('end-numero').value.trim();
+            const bairro = document.getElementById('end-bairro').value.trim();
+            const complemento = document.getElementById('end-complemento').value.trim();
+
+            if (!rua || !numero || !bairro) {
+                alert("Por favor, preencha o endereço de entrega completo (Rua, Número e Bairro)!");
+                return;
+            }
+
             const formaPagamento = document.querySelector('input[name="pagamento"]:checked').value;
             let detalheTroco = "";
 
@@ -695,8 +754,9 @@
             msgPedido.innerHTML = `
                 <div style="background-color: #fff; padding: 15px; border-radius: 8px; border: 1px solid var(--cor-destaque); text-align: center;">
                     <p style="margin: 0 0 10px 0; color: var(--cor-destaque); font-size: 1.2rem; font-weight: bold;">🎉 Pedido #${numPedido} Gerado!</p>
-                    <p style="margin: 5px 0; font-size: 1rem;"><strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}</p>
-                    <p style="margin: 5px 0; font-size: 0.95rem;"><strong>Forma de Pagamento:</strong> ${formaPagamento}${detalheTroco}</p>
+                    <p style="margin: 5px 0; font-size: 0.95rem; text-align: left;"><strong>📍 Entrega em:</strong> ${rua}, Nº ${numero} - ${bairro}${complemento ? ' (' + complemento + ')' : ''}</p>
+                    <p style="margin: 5px 0; font-size: 0.95rem; text-align: left;"><strong>💳 Pagamento:</strong> ${formaPagamento}${detalheTroco}</p>
+                    <p style="margin: 5px 0; font-size: 1rem; text-align: left;"><strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}</p>
                     <a href="${urlPagamento}" target="_blank" class="btn-add-carrinho" style="display: inline-block; text-decoration: none; margin-top: 10px; padding: 12px 20px;">
                         💳 Clique Aqui para Pagar
                     </a>
@@ -709,7 +769,6 @@
             document.getElementById('secao-pagamento').style.display = 'none';
         }
 
-        // Função de Reserva de Mesa Atualizada
         function confirmarReserva(event) {
             event.preventDefault();
 
