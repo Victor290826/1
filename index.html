@@ -151,11 +151,11 @@
             background-color: var(--cor-destaque);
         }
 
-        /* Estilos da Tela de Reserva */
+        /* Estilos de Formulário (Reserva e Pagamento) */
         .campo-reserva {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
             text-align: left;
             margin-bottom: 10px;
         }
@@ -163,6 +163,10 @@
             font-weight: bold;
             color: var(--cor-texto);
             font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
         }
         .grupo-reserva {
             display: flex;
@@ -178,6 +182,7 @@
             font-size: 1rem;
             color: var(--cor-texto);
             background-color: #fff;
+            box-sizing: border-box;
         }
         .input-pequeno {
             width: 70px;
@@ -229,7 +234,7 @@
 
         <!-- Tela de Seleção de Prato -->
         <div id="tela-prato-principal" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Seleção de Prato</h2>
             <p class="card-desc">Clique na foto para passar para o próximo prato!</p>
 
@@ -264,7 +269,7 @@
 
         <!-- Tela Bebidas -->
         <div id="tela-bebidas" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Bebidas</h2>
             <p class="card-desc">Confira nossas melhores bebidas.</p>
 
@@ -329,7 +334,7 @@
 
         <!-- Tela de Sobremesa -->
         <div id="tela-sobremesa" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Sobremesas</h2>
             <p class="card-desc">Confira nossas deliciosas sobremesas!</p>
 
@@ -370,7 +375,7 @@
 
         <!-- Tela de Carrinho -->
         <div id="tela-carrinho" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Carrinho</h2>
             <p class="card-desc">Encontre os pedidos que você se interessou aqui.</p>
 
@@ -380,12 +385,33 @@
                 </div>
                 <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
                 <h3 class="card-titulo" style="font-size: 1.3rem;">Total: <span id="total-carrinho">R$ 0,00</span></h3>
+
+                <!-- Opções de Pagamento -->
+                <div id="secao-pagamento" style="display: none; margin-top: 20px; text-align: left;">
+                    <h3 class="card-titulo" style="font-size: 1.1rem; margin-bottom: 10px;">Forma de Pagamento:</h3>
+                    
+                    <div class="campo-reserva">
+                        <label><input type="radio" name="pagamento" value="Cartão de Crédito" checked onclick="toggleTroco()"> Cartão de Crédito</label>
+                        <label><input type="radio" name="pagamento" value="Cartão de Débito" onclick="toggleTroco()"> Cartão de Débito</label>
+                        <label><input type="radio" name="pagamento" value="Pix" onclick="toggleTroco()"> Pix</label>
+                        <label><input type="radio" name="pagamento" value="Dinheiro" id="pagamento-dinheiro" onclick="toggleTroco()"> Dinheiro</label>
+                    </div>
+
+                    <div id="campo-troco" style="display: none; margin-top: 10px;">
+                        <label style="font-size: 0.9rem; font-weight: bold; color: var(--cor-texto);">Precisa de troco para quanto?</label>
+                        <input type="number" id="valor-troco" class="input-num" style="width: 100%; margin-top: 5px;" placeholder="Ex: 50,00" step="0.01">
+                    </div>
+
+                    <button class="btn-add-carrinho" style="width: 100%; margin-top: 15px;" onclick="finalizarPedido()">Finalizar Pedido</button>
+                </div>
+
+                <div id="mensagem-pedido" style="margin-top: 15px; font-weight: bold; color: var(--cor-destaque);"></div>
             </div>
         </div>
 
         <!-- Tela de Reservas -->
         <div id="tela-reservas" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Reservas</h2>
             <p class="card-desc">Faça sua reserva conosco!</p>
 
@@ -429,7 +455,7 @@
 
         <!-- Tela de Localização -->
         <div id="tela-localizacao" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Localização</h2>
             <p class="card-desc">Encontre nosso restaurante!</p>
 
@@ -440,7 +466,7 @@
 
         <!-- Tela de Contato -->
         <div id="tela-contato" class="tela">
-            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <button class="btn-voltar" onclick="voltarPagina()">Voltar</button>
             <h2 class="card-titulo">Contato</h2>
             <p class="card-desc">Entre em contato conosco!</p>
 
@@ -455,18 +481,40 @@
         // Array global para salvar os itens do carrinho
         let carrinho = [];
 
-        function abrirTela(idTela) {
-            // 1. Esconde todas as telas
+        // Controle da navegação (histórico do telemóvel)
+        function abrirTela(idTela, pushHistory = true) {
             const telas = document.querySelectorAll('.tela');
             telas.forEach(tela => tela.classList.remove('ativa'));
 
-            // 2. Exibe a tela desejada
             const telaDesejada = document.getElementById(idTela);
             if (telaDesejada) {
                 telaDesejada.classList.add('ativa');
                 inicializarSlides(telaDesejada);
             }
+
+            // Regista a navegação no histórico
+            if (pushHistory) {
+                history.pushState({ tela: idTela }, '', `#${idTela}`);
+            }
         }
+
+        // Função do botão "Voltar" nos menus
+        function voltarPagina() {
+            if (history.state && history.state.tela !== 'tela-menu') {
+                history.back();
+            } else {
+                abrirTela('tela-menu', false);
+            }
+        }
+
+        // Listener para o botão "Voltar" nativo do telemóvel/navegador
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.tela) {
+                abrirTela(event.state.tela, false);
+            } else {
+                abrirTela('tela-menu', false);
+            }
+        });
 
         function inicializarSlides(tela) {
             const slides = tela.querySelectorAll('.card-foto-slide');
@@ -475,7 +523,7 @@
             });
         }
 
-        // Passar prato ao clicar no próprio cartão/foto
+        // Passar prato ao clicar no cartão/foto
         function PassarPrato(elementoClicado) {
             const telaAtual = elementoClicado.parentElement;
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -489,7 +537,6 @@
             slides[proximoIndice].style.display = 'block';
         }
 
-        // Função do botão Próximo
         function passarPrato(btn) {
             const telaAtual = btn.closest('.tela');
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -503,7 +550,6 @@
             slides[proximoIndice].style.display = 'block';
         }
 
-        // Função do botão Anterior
         function voltarPrato(btn) {
             const telaAtual = btn.closest('.tela');
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -519,7 +565,7 @@
 
         // Adicionar item ao carrinho
         function adicionarAoCarrinho(event, nome, preco) {
-            event.stopPropagation(); // Impede que o clique no botão passe o slide da imagem
+            event.stopPropagation();
             carrinho.push({ nome, preco });
             atualizarCarrinho();
             alert(`"${nome}" foi adicionado ao seu carrinho!`);
@@ -531,16 +577,28 @@
             atualizarCarrinho();
         }
 
-        // Atualizar visual do carrinho
+        // Exibir/Esconder o campo de Troco quando selecionado Dinheiro
+        function toggleTroco() {
+            const ehDinheiro = document.getElementById('pagamento-dinheiro').checked;
+            const campoTroco = document.getElementById('campo-troco');
+            campoTroco.style.display = ehDinheiro ? 'block' : 'none';
+        }
+
+        // Atualizar a visualização do carrinho
         function atualizarCarrinho() {
             const containerCarrinho = document.getElementById('lista-carrinho');
             const totalElemento = document.getElementById('total-carrinho');
+            const secaoPagamento = document.getElementById('secao-pagamento');
+            const msgPedido = document.getElementById('mensagem-pedido');
 
             if (!containerCarrinho) return;
+
+            if (msgPedido) msgPedido.innerText = '';
 
             if (carrinho.length === 0) {
                 containerCarrinho.innerHTML = '<p class="card-desc">Seu carrinho está vazio.</p>';
                 if (totalElemento) totalElemento.innerText = 'R$ 0,00';
+                if (secaoPagamento) secaoPagamento.style.display = 'none';
                 return;
             }
 
@@ -562,11 +620,43 @@
 
             containerCarrinho.innerHTML = html;
             if (totalElemento) totalElemento.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            if (secaoPagamento) secaoPagamento.style.display = 'block';
         }
 
-        // Confirmar a reserva com as opções de números digitadas
+        // Finalização da Compra
+        function finalizarPedido() {
+            if (carrinho.length === 0) {
+                alert("O seu carrinho está vazio!");
+                return;
+            }
+
+            const formaPagamento = document.querySelector('input[name="pagamento"]:checked').value;
+            let detalheTroco = "";
+
+            if (formaPagamento === "Dinheiro") {
+                const valorTroco = document.getElementById('valor-troco').value;
+                if (valorTroco) {
+                    detalheTroco = ` (Troco para R$ ${parseFloat(valorTroco).toFixed(2).replace('.', ',')})`;
+                }
+            }
+
+            const total = carrinho.reduce((acc, item) => acc + item.preco, 0);
+            const msgPedido = document.getElementById('mensagem-pedido');
+
+            msgPedido.innerHTML = `🎉 Pedido realizado com sucesso!<br>
+                <strong>Total:</strong> R$ ${total.toFixed(2).replace('.', ',')}<br>
+                <strong>Pagamento:</strong> ${formaPagamento}${detalheTroco}`;
+
+            // Limpa o carrinho
+            carrinho = [];
+            document.getElementById('lista-carrinho').innerHTML = '<p class="card-desc">Seu carrinho está vazio.</p>';
+            document.getElementById('total-carrinho').innerText = 'R$ 0,00';
+            document.getElementById('secao-pagamento').style.display = 'none';
+        }
+
+        // Confirmar reserva
         function confirmarReserva(event) {
-            event.preventDefault(); // Evita recarregar a página ao enviar o formulário
+            event.preventDefault();
 
             const dia = document.getElementById('reserva-dia').value.padStart(2, '0');
             const mes = document.getElementById('reserva-mes').value.padStart(2, '0');
@@ -579,8 +669,11 @@
             divMensagem.innerHTML = `✅ Reserva confirmada para <strong>${dia}/${mes}/${ano}</strong> às <strong>${hora}:${minuto}</strong> para <strong>${pessoas} pessoa(s)</strong>!`;
         }
 
-        // Prepara os slides ao carregar a página
+        // Inicialização da página
         document.addEventListener('DOMContentLoaded', () => {
+            // Substitui o estado inicial para permitir navegar de volta ao menu
+            history.replaceState({ tela: 'tela-menu' }, '', '#tela-menu');
+            
             const telaInicial = document.getElementById('tela-menu');
             if (telaInicial) {
                 inicializarSlides(telaInicial);
