@@ -95,27 +95,70 @@
             color: var(--cor-texto);
             font-size: 1.1rem;
         }
-         .btn-anterior {
-           background-color: var(--cor-botao);
-           color: white;
-           text-align: left;
-           padding: 10px 20px;
-           border-radius: 5px;
-           border: none;
-           cursor: pointer;
-           margin-bottom: 20px;
-           margin: 0 30px;
+        .btn-anterior {
+            background-color: var(--cor-botao);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin: 10px 10px;
         }
         .btn-proximo {
             background-color: var(--cor-botao);
-           color: white;
-           text-align: right;
-           padding: 10px 20px;
-           border-radius: 5px;
-           border: none;
-           cursor: pointer;
-           margin-bottom: 20px;
-            margin: 0 30px;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin: 10px 10px;
+        }
+        .btn-anterior:hover, .btn-proximo:hover {
+            background-color: var(--cor-destaque);
+        }
+
+        /* Novas Estilizações para Preço e Carrinho */
+        .preco-prato {
+            color: var(--cor-destaque);
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        .btn-add-carrinho {
+            background-color: var(--cor-destaque);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-add-carrinho:hover {
+            background-color: var(--cor-texto);
+        }
+        .item-carrinho {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        .btn-remover-item {
+            background-color: var(--cor-botao);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn-remover-item:hover {
+            background-color: var(--cor-destaque);
         }
     </style>
 </head>
@@ -136,6 +179,10 @@
             <div class="card-menu" onclick="abrirTela('tela-sobremesa')">
                 <h3 class="card-titulo">Sobremesas</h3>
                 <p class="card-desc">As melhores e mais doces tentações da casa.</p>
+            </div>
+            <div class="card-menu" onclick="abrirTela('tela-carrinho')">
+                <h3 class="card-titulo">Carrinho</h3>
+                <p class="card-desc">Visualize todos os pedidos que você se interessou.</p>
             </div>
             <div class="card-menu" onclick="abrirTela('tela-reservas')">
                 <h3 class="card-titulo">Reservas</h3>
@@ -158,23 +205,32 @@
             <p class="card-desc">Clique na foto para passar para o próximo prato!</p>
 
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 25,00</div>
                 <img src="creme.jpg" alt="Creme de Frango">
-                <p class="card-desc">1.Creme de Frango</p>            
+                <p class="card-desc">1. Creme de Frango</p>            
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Creme de Frango', 25.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 22,00</div>
                 <img src="macarronada.jfif" alt="Macarronada">
-                <p class="card-desc">2.Macarronada</p>
+                <p class="card-desc">2. Macarronada</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Macarronada', 22.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 20,00</div>
                 <img src="empanado.jfif" alt="Empanado">
-                <p class="card-desc">3.Empanado</p>
+                <p class="card-desc">3. Empanado</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Empanado', 20.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 28,00</div>
                 <img src="escondidinho.jpg" alt="Escondidinho de Carne">
-                <p class="card-desc">4.Escondidinho de Carne</p>
+                <p class="card-desc">4. Escondidinho de Carne</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Escondidinho de Carne', 28.00)">Adicionar ao Carrinho</button>
             </div>
-            <button class="btn-anterior" onclick="voltarPrato">Anterior</button>
-           <button class="btn-proximo" onclick="passarPrato">Próximo</button>
+
+            <button class="btn-anterior" onclick="voltarPrato(this)">Anterior</button>
+            <button class="btn-proximo" onclick="passarPrato(this)">Próximo</button>
         </div>
 
         <!-- Tela de Sobremesa -->
@@ -184,27 +240,53 @@
             <p class="card-desc">Confira nossas deliciosas sobremesas!</p>
 
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 18,00</div>
                 <img src="açai.jpeg" alt="Açaí">
                 <p class="card-desc">1. Açaí (Acompanhamento: Granola, Leite Condensado, Leite em pó, Paçoca)</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Açaí', 18.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 12,00</div>
                 <img src="sorvete.webp" alt="Sorvete">
                 <p class="card-desc">2. Sorvete (Creme, Chocolate, Baunilha, Pavê)</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Sorvete', 12.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 10,00</div>
                 <img src="bolo.jfif" alt="Bolo">
                 <p class="card-desc">3. Bolo (Chocolate, Cenoura, Fubá, Laranja)</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Bolo', 10.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 12,00</div>
                 <img src="pudim.webp" alt="Pudim">
                 <p class="card-desc">4. Pudim</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Pudim', 12.00)">Adicionar ao Carrinho</button>
             </div>
             <div class="card-foto-slide" onclick="PassarPrato(this)">
+                <div class="preco-prato">R$ 14,00</div>
                 <img src="torta.webp" alt="Torta">
                 <p class="card-desc">5. Torta (Limão, Chocolate, Maracujá, Morango, Paçoca)</p>
+                <button class="btn-add-carrinho" onclick="adicionarAoCarrinho(event, 'Torta', 14.00)">Adicionar ao Carrinho</button>
             </div>
-            <button class="btn-anterior" onclick="voltarPrato">Anterior</button>
-           <button class="btn-proximo" onclick="passarPrato">Próximo</button>
+
+            <button class="btn-anterior" onclick="voltarPrato(this)">Anterior</button>
+            <button class="btn-proximo" onclick="passarPrato(this)">Próximo</button>
+        </div>
+
+        <!-- Tela de Carrinho -->
+        <div id="tela-carrinho" class="tela">
+            <button class="btn-voltar" onclick="abrirTela('tela-menu')">Voltar</button>
+            <h2 class="card-titulo">Carrinho</h2>
+            <p class="card-desc">Encontre os pedidos que você se interessou aqui.</p>
+
+            <div class="card-menu" style="cursor: default;">
+                <div id="lista-carrinho">
+                    <p class="card-desc">Seu carrinho está vazio.</p>
+                </div>
+                <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+                <h3 class="card-titulo" style="font-size: 1.3rem;">Total: <span id="total-carrinho">R$ 0,00</span></h3>
+            </div>
         </div>
 
         <!-- Tela de Localização -->
@@ -245,6 +327,9 @@
     </div>
 
     <script>
+        // Array global do carrinho
+        let carrinho = [];
+
         function abrirTela(idTela) {
             // 1. Esconde todas as telas
             const telas = document.querySelectorAll('.tela');
@@ -265,6 +350,7 @@
             });
         }
 
+        // Passar prato ao clicar no cartão da foto
         function PassarPrato(elementoClicado) {
             const telaAtual = elementoClicado.parentElement;
             const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
@@ -276,6 +362,81 @@
 
             elementoClicado.style.display = 'none';
             slides[proximoIndice].style.display = 'block';
+        }
+
+        // Função do botão Próximo
+        function passarPrato(btn) {
+            const telaAtual = btn.closest('.tela');
+            const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
+            if (slides.length <= 1) return;
+
+            let indiceAtual = slides.findIndex(slide => slide.style.display !== 'none');
+            if (indiceAtual === -1) indiceAtual = 0;
+
+            slides[indiceAtual].style.display = 'none';
+            const proximoIndice = (indiceAtual + 1) % slides.length;
+            slides[proximoIndice].style.display = 'block';
+        }
+
+        // Função do botão Anterior
+        function voltarPrato(btn) {
+            const telaAtual = btn.closest('.tela');
+            const slides = Array.from(telaAtual.querySelectorAll('.card-foto-slide'));
+            if (slides.length <= 1) return;
+
+            let indiceAtual = slides.findIndex(slide => slide.style.display !== 'none');
+            if (indiceAtual === -1) indiceAtual = 0;
+
+            slides[indiceAtual].style.display = 'none';
+            const anteriorIndice = (indiceAtual - 1 + slides.length) % slides.length;
+            slides[anteriorIndice].style.display = 'block';
+        }
+
+        // Adicionar item ao carrinho
+        function adicionarAoCarrinho(event, nome, preco) {
+            event.stopPropagation(); // Impede de trocar o slide ao clicar no botão
+            carrinho.push({ nome, preco });
+            atualizarCarrinho();
+            alert(`"${nome}" foi adicionado ao seu carrinho!`);
+        }
+
+        // Remover item do carrinho
+        function removerDoCarrinho(index) {
+            carrinho.splice(index, 1);
+            atualizarCarrinho();
+        }
+
+        // Atualizar o visual do carrinho
+        function atualizarCarrinho() {
+            const containerCarrinho = document.getElementById('lista-carrinho');
+            const totalElemento = document.getElementById('total-carrinho');
+
+            if (!containerCarrinho) return;
+
+            if (carrinho.length === 0) {
+                containerCarrinho.innerHTML = '<p class="card-desc">Seu carrinho está vazio.</p>';
+                if (totalElemento) totalElemento.innerText = 'R$ 0,00';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            carrinho.forEach((item, index) => {
+                total += item.preco;
+                html += `
+                    <div class="item-carrinho">
+                        <div>
+                            <strong>${item.nome}</strong><br>
+                            <small class="card-desc" style="font-size: 0.9rem;">R$ ${item.preco.toFixed(2).replace('.', ',')}</small>
+                        </div>
+                        <button class="btn-remover-item" onclick="removerDoCarrinho(${index})">Remover</button>
+                    </div>
+                `;
+            });
+
+            containerCarrinho.innerHTML = html;
+            if (totalElemento) totalElemento.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
 
         // Prepara os slides ao carregar a página
